@@ -1,4 +1,3 @@
-
 class Grid:
     """Grid class for setting up the battleship grid
     """
@@ -15,6 +14,7 @@ class Grid:
         self.cols = []
         self.rows = []
         self.__labels()
+        self.ships = []
 
     def __construct_grid(self):
         """Create an empty grid based on chosen difficulty level
@@ -77,6 +77,10 @@ class Grid:
         letter_coord = self.cols.index(coord[1].upper())
 
         if direction == "h":
+            # Check if ship will be within horizontal bounds of the board
+            if letter_coord + 1 >= len(self.cols):
+                print("Ship is out of bound. Please try again.")
+                return None
             # Place the left end of the ship
             self.grid[int(coord[0])][letter_coord] = "<"
 
@@ -84,11 +88,20 @@ class Grid:
             if self.grid[int(coord[0])][letter_coord + 1] != ".":
                 print("\nA ship has already been placed on those coordinates.")
                 return None
-            else:
-                # Place the right end of the ship
-                self.grid[int(coord[0])][letter_coord + 1] = ">"
+
+            # Place the right end of the ship
+            self.grid[int(coord[0])][letter_coord + 1] = ">"
+
+            # Ship has been successfully placed.
+            # Add the coordinates to ship list
+            self.ships.append([(int(coord[0]), self.cols[letter_coord]),
+                               (coord[0], self.cols[letter_coord + 1])])
 
         else:   # direction == "v"
+            # Check if ship will be within vertical bounds of the board
+            if (int(coord[0]) + 1) not in self.rows:
+                print("Ship is out of bound. Please try again.")
+                return None
             # Place the top end of the ship
             self.grid[int(coord[0])][letter_coord] = "^"
 
@@ -96,9 +109,13 @@ class Grid:
             if self.grid[int(coord[0]) + 1][letter_coord] != ".":
                 print("\nA ship has already been placed on those coordinates.")
                 return None
-            else:
-                # Place the bottom end of the ship
-                self.grid[int(coord[0]) + 1][letter_coord] = "v"
+
+            # Place the bottom end of the ship
+            self.grid[int(coord[0]) + 1][letter_coord] = "v"
+
+            # Ship has been successfully placed. Add the coords to ship list
+            self.ships.append([(int(coord[0]), self.cols[letter_coord]),
+                               (int(coord[0]) + 1, self.cols[letter_coord])])
 
         return self.grid
 
@@ -108,6 +125,10 @@ class Grid:
         """
         letter_coord = self.cols.index(coord[1].upper())
         if direction == "h":
+            if letter_coord + 1 >= len(self.cols) or \
+                    letter_coord + 2 >= len(self.cols):
+                print("Ship is out of bound. Please try again.")
+                return None
             if coord[1] in self.cols[-2:]:
                 print("\nShip is out of bound. Please try again.")
                 return None
@@ -118,11 +139,20 @@ class Grid:
                 if not self.grid[int(coord[0])][letter_coord + 2] == ".":
                     print("\nA ship is in the way. Pick another coordinate.\n")
                     return None
+
                 self.grid[int(coord[0])][letter_coord] = "<"
                 self.grid[int(coord[0])][letter_coord + 1] = "-"
                 self.grid[int(coord[0])][letter_coord + 2] = ">"
 
+                self.ships.append([(int(coord[0]), self.cols[letter_coord]),
+                                   (int(coord[0]), self.cols[letter_coord + 1]),
+                                   (int(coord[0]), self.cols[letter_coord + 2])])
+
         else:  # direction == 'v'
+            if (int(coord[0]) + 1) not in self.rows or \
+                    (int(coord[0]) + 2) not in self.rows:
+                print("Ship is out of bound. Please try again.")
+                return None
             if int(coord[0]) >= self.rows[-2]:
                 print("Ship is out of bound.")
                 return None
@@ -133,9 +163,14 @@ class Grid:
                 if not self.grid[int(coord[0]) + 2][letter_coord] == ".":
                     print("\nA ship is in the way. Pick another coordinate.\n")
                     return None
+
                 self.grid[int(coord[0])][letter_coord] = "^"
                 self.grid[int(coord[0]) + 1][letter_coord] = "|"
                 self.grid[int(coord[0]) + 2][letter_coord] = "v"
+
+                self.ships.append([(int(coord[0]), self.cols[letter_coord]),
+                                   (int(coord[0]) + 1, self.cols[letter_coord]),
+                                   (int(coord[0]) + 2, self.cols[letter_coord])])
         return self.grid
 
     def place_4x1_ship(self, coord, direction):
@@ -145,6 +180,11 @@ class Grid:
         letter_coord = self.cols.index(coord[1].upper())
 
         if direction == "h":
+            if letter_coord + 1 >= len(self.cols) or \
+                    letter_coord + 2 >= len(self.cols) or\
+                    letter_coord + 3 >= len(self.cols):
+                print("Ship is out of bound. Please try again.")
+                return None
             if coord[1] in self.cols[-3:]:
                 print("\nShip is out of bound. Please try again.")
                 return None
@@ -158,12 +198,23 @@ class Grid:
                 if not self.grid[int(coord[0])][letter_coord + 3] == ".":
                     print("\nA ship is in the way. Pick another coordinate.\n")
                     return None
+
                 self.grid[int(coord[0])][letter_coord] = "<"
                 self.grid[int(coord[0])][letter_coord + 1] = "-"
                 self.grid[int(coord[0])][letter_coord + 2] = "-"
                 self.grid[int(coord[0])][letter_coord + 3] = ">"
 
+                self.ships.append([(int(coord[0]), self.cols[letter_coord]),
+                                   (int(coord[0]), self.cols[letter_coord + 1]),
+                                   (int(coord[0]), self.cols[letter_coord + 2]),
+                                   (int(coord[0]), self.cols[letter_coord + 3])])
+
         else:  # direction == 'v'
+            if (int(coord[0]) + 1) not in self.rows or \
+                    (int(coord[0]) + 2) not in self.rows or \
+                    (int(coord[0]) + 3) not in self.rows:
+                print("Ship is out of bound. Please try again.")
+                return None
             if int(coord[0]) >= self.rows[-3]:
                 print("Ship is out of bound.")
                 return None
@@ -177,10 +228,16 @@ class Grid:
                 if not self.grid[int(coord[0]) + 3][letter_coord] == ".":
                     print("\nA ship is in the way. Pick another coordinate.\n")
                     return None
+
                 self.grid[int(coord[0])][letter_coord] = "^"
                 self.grid[int(coord[0]) + 1][letter_coord] = "|"
                 self.grid[int(coord[0]) + 2][letter_coord] = "|"
                 self.grid[int(coord[0]) + 3][letter_coord] = "v"
+
+                self.ships.append([(int(coord[0]), self.cols[letter_coord]),
+                                   (int(coord[0]) + 1, self.cols[letter_coord]),
+                                   (int(coord[0]) + 2, self.cols[letter_coord]),
+                                   (int(coord[0]) + 3, self.cols[letter_coord])])
         return self.grid
 
     def place_5x1_ship(self, coord, direction):
@@ -190,6 +247,12 @@ class Grid:
         letter_coord = self.cols.index(coord[1].upper())
 
         if direction == "h":
+            if letter_coord + 1 >= len(self.cols) or \
+                    letter_coord + 2 >= len(self.cols) or \
+                    letter_coord + 3 >= len(self.cols) or \
+                    letter_coord + 4 >= len(self.cols):
+                print("Ship is out of bound. Please try again.")
+                return None
             if coord[1] in self.cols[-4:]:
                 print("\nShip is out of bound. Please try again.")
                 return None
@@ -206,13 +269,26 @@ class Grid:
                 if not self.grid[int(coord[0])][letter_coord + 4] == ".":
                     print("\nA ship is in the way. Pick another coordinate.\n")
                     return None
+
                 self.grid[int(coord[0])][letter_coord] = "<"
                 self.grid[int(coord[0])][letter_coord + 1] = "-"
                 self.grid[int(coord[0])][letter_coord + 2] = "-"
                 self.grid[int(coord[0])][letter_coord + 3] = "-"
                 self.grid[int(coord[0])][letter_coord + 4] = ">"
 
+                self.ships.append([(int(coord[0]), self.cols[letter_coord]),
+                                   (int(coord[0]), self.cols[letter_coord + 1]),
+                                   (int(coord[0]), self.cols[letter_coord + 2]),
+                                   (int(coord[0]), self.cols[letter_coord + 3]),
+                                   (int(coord[0]), self.cols[letter_coord + 4])])
+
         else:  # direction == 'v'
+            if (int(coord[0]) + 1) not in self.rows or \
+                    (int(coord[0]) + 2) not in self.rows or \
+                    (int(coord[0]) + 3) not in self.rows or \
+                    (int(coord[0]) + 4) not in self.rows:
+                print("Ship is out of bound. Please try again.")
+                return None
             if int(coord[0]) >= self.rows[-4]:
                 print("Ship is out of bound.")
                 return None
@@ -229,11 +305,18 @@ class Grid:
                 if not self.grid[int(coord[0]) + 4][letter_coord] == ".":
                     print("\nA ship is in the way. Pick another coordinate.\n")
                     return None
+
                 self.grid[int(coord[0])][letter_coord] = "^"
                 self.grid[int(coord[0]) + 1][letter_coord] = "|"
                 self.grid[int(coord[0]) + 2][letter_coord] = "|"
                 self.grid[int(coord[0]) + 3][letter_coord] = "|"
-                self.grid[int(coord[0]) + 4][letter_coord] = "|"
+                self.grid[int(coord[0]) + 4][letter_coord] = "v"
+
+                self.ships.append([(int(coord[0]), self.cols[letter_coord]),
+                                   (int(coord[0]) + 1, self.cols[letter_coord]),
+                                   (int(coord[0]) + 2, self.cols[letter_coord]),
+                                   (int(coord[0]) + 3, self.cols[letter_coord]),
+                                   (int(coord[0]) + 4, self.cols[letter_coord])])
         return self.grid
 
     def preliminary_checks(self, coord, direction):
@@ -385,6 +468,8 @@ if __name__ == '__main__':
 
     # placing the 5x1 ship
     place_ship("5x1", grid)
+
+    # print(grid.ships)
 
 
 
