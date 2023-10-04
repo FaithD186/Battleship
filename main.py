@@ -84,10 +84,11 @@ class Grid:
             print(row)
 
     def place_2x1_ship(self, coord, direction):
-        """Returns a grid with placed 2x1 ship. Returns None if coordinates
-        are invalid.
+        """Returns a grid with placed 2x1 ship if given coordinates and direction
+        for the ship is valid and within bounds.
+        Returns None if coordinates are invalid.
         """
-        # convert letter coordinate to index number on grid (e.g. A becomes 0)
+        # Convert letter coordinate to index number on grid (e.g. A becomes 0)
         letter_coord = self.cols.index(coord[1].upper())
 
         if direction == "h":
@@ -140,17 +141,13 @@ class Grid:
         letter_coord = self.cols.index(coord[1].upper())
         if direction == "h":
             if letter_coord + 1 >= len(self.cols) or \
-                    letter_coord + 2 >= len(self.cols):
-                print("Ship is out of bound. Please try again.")
-                return None
-            if coord[1] in self.cols[-2:]:
+                    letter_coord + 2 >= len(self.cols) or \
+                    coord[1] in self.cols[-2:]:
                 print("\nShip is out of bound. Please try again.")
                 return None
             else:
-                if not self.grid[int(coord[0])][letter_coord + 1] == ".":
-                    print("\nA ship is in the way. Pick another coordinate.\n")
-                    return None
-                if not self.grid[int(coord[0])][letter_coord + 2] == ".":
+                if not self.grid[int(coord[0])][letter_coord + 1] == "." or \
+                        not self.grid[int(coord[0])][letter_coord + 2] == ".":
                     print("\nA ship is in the way. Pick another coordinate.\n")
                     return None
 
@@ -164,17 +161,13 @@ class Grid:
 
         else:  # direction == 'v'
             if (int(coord[0]) + 1) not in self.rows or \
-                    (int(coord[0]) + 2) not in self.rows:
+                    (int(coord[0]) + 2) not in self.rows or \
+                    int(coord[0]) >= self.rows[-2]:
                 print("Ship is out of bound. Please try again.")
                 return None
-            if int(coord[0]) >= self.rows[-2]:
-                print("Ship is out of bound.")
-                return None
             else:
-                if not self.grid[int(coord[0]) + 1][letter_coord] == ".":
-                    print("\nA ship is in the way. Pick another coordinate.\n")
-                    return None
-                if not self.grid[int(coord[0]) + 2][letter_coord] == ".":
+                if not self.grid[int(coord[0]) + 1][letter_coord] == "." or \
+                        not self.grid[int(coord[0]) + 2][letter_coord] == ".":
                     print("\nA ship is in the way. Pick another coordinate.\n")
                     return None
 
@@ -196,20 +189,14 @@ class Grid:
         if direction == "h":
             if letter_coord + 1 >= len(self.cols) or \
                     letter_coord + 2 >= len(self.cols) or\
-                    letter_coord + 3 >= len(self.cols):
+                    letter_coord + 3 >= len(self.cols) or \
+                    coord[1] in self.cols[-3:]:
                 print("Ship is out of bound. Please try again.")
                 return None
-            if coord[1] in self.cols[-3:]:
-                print("\nShip is out of bound. Please try again.")
-                return None
             else:
-                if not self.grid[int(coord[0])][letter_coord + 1] == ".":
-                    print("\nA ship is in the way. Pick another coordinate.\n")
-                    return None
-                if not self.grid[int(coord[0])][letter_coord + 2] == ".":
-                    print("\nA ship is in the way. Pick another coordinate.\n")
-                    return None
-                if not self.grid[int(coord[0])][letter_coord + 3] == ".":
+                if not self.grid[int(coord[0])][letter_coord + 1] == "." or \
+                        not self.grid[int(coord[0])][letter_coord + 2] == "." or \
+                        not self.grid[int(coord[0])][letter_coord + 3] == ".":
                     print("\nA ship is in the way. Pick another coordinate.\n")
                     return None
 
@@ -226,20 +213,14 @@ class Grid:
         else:  # direction == 'v'
             if (int(coord[0]) + 1) not in self.rows or \
                     (int(coord[0]) + 2) not in self.rows or \
-                    (int(coord[0]) + 3) not in self.rows:
+                    (int(coord[0]) + 3) not in self.rows or \
+                    int(coord[0]) >= self.rows[-3]:
                 print("Ship is out of bound. Please try again.")
                 return None
-            if int(coord[0]) >= self.rows[-3]:
-                print("Ship is out of bound.")
-                return None
             else:
-                if not self.grid[int(coord[0]) + 1][letter_coord] == ".":
-                    print("\nA ship is in the way. Pick another coordinate.\n")
-                    return None
-                if not self.grid[int(coord[0]) + 2][letter_coord] == ".":
-                    print("\nA ship is in the way. Pick another coordinate.\n")
-                    return None
-                if not self.grid[int(coord[0]) + 3][letter_coord] == ".":
+                if not self.grid[int(coord[0]) + 1][letter_coord] == "." or \
+                        not self.grid[int(coord[0]) + 2][letter_coord] == "." or \
+                        not self.grid[int(coord[0]) + 3][letter_coord] == ".":
                     print("\nA ship is in the way. Pick another coordinate.\n")
                     return None
 
@@ -264,23 +245,15 @@ class Grid:
             if letter_coord + 1 >= len(self.cols) or \
                     letter_coord + 2 >= len(self.cols) or \
                     letter_coord + 3 >= len(self.cols) or \
-                    letter_coord + 4 >= len(self.cols):
+                    letter_coord + 4 >= len(self.cols) or \
+                    coord[1] in self.cols[-4:]:
                 print("Ship is out of bound. Please try again.")
                 return None
-            if coord[1] in self.cols[-4:]:
-                print("\nShip is out of bound. Please try again.")
-                return None
             else:
-                if not self.grid[int(coord[0])][letter_coord + 1] == ".":
-                    print("\nA ship is in the way. Pick another coordinate.\n")
-                    return None
-                if not self.grid[int(coord[0])][letter_coord + 2] == ".":
-                    print("\nA ship is in the way. Pick another coordinate.\n")
-                    return None
-                if not self.grid[int(coord[0])][letter_coord + 3] == ".":
-                    print("\nA ship is in the way. Pick another coordinate.\n")
-                    return None
-                if not self.grid[int(coord[0])][letter_coord + 4] == ".":
+                if not self.grid[int(coord[0])][letter_coord + 1] == "." or \
+                        not self.grid[int(coord[0])][letter_coord + 2] == "." or \
+                        not self.grid[int(coord[0])][letter_coord + 3] == "." or \
+                        not self.grid[int(coord[0])][letter_coord + 4] == ".":
                     print("\nA ship is in the way. Pick another coordinate.\n")
                     return None
 
@@ -300,23 +273,15 @@ class Grid:
             if (int(coord[0]) + 1) not in self.rows or \
                     (int(coord[0]) + 2) not in self.rows or \
                     (int(coord[0]) + 3) not in self.rows or \
-                    (int(coord[0]) + 4) not in self.rows:
+                    (int(coord[0]) + 4) not in self.rows or \
+                    int(coord[0]) >= self.rows[-4]:
                 print("Ship is out of bound. Please try again.")
                 return None
-            if int(coord[0]) >= self.rows[-4]:
-                print("Ship is out of bound.")
-                return None
             else:
-                if not self.grid[int(coord[0]) + 1][letter_coord] == ".":
-                    print("\nA ship is in the way. Pick another coordinate.\n")
-                    return None
-                if not self.grid[int(coord[0]) + 2][letter_coord] == ".":
-                    print("\nA ship is in the way. Pick another coordinate.\n")
-                    return None
-                if not self.grid[int(coord[0]) + 3][letter_coord] == ".":
-                    print("\nA ship is in the way. Pick another coordinate.\n")
-                    return None
-                if not self.grid[int(coord[0]) + 4][letter_coord] == ".":
+                if not self.grid[int(coord[0]) + 1][letter_coord] == "." or \
+                        not self.grid[int(coord[0]) + 2][letter_coord] == "." or \
+                        not self.grid[int(coord[0]) + 3][letter_coord] == "." or \
+                        not self.grid[int(coord[0]) + 4][letter_coord] == ".":
                     print("\nA ship is in the way. Pick another coordinate.\n")
                     return None
 
@@ -336,12 +301,11 @@ class Grid:
     def preliminary_checks(self, coord, direction):
         """Conducts preliminary checks on the validity of ship placements,
         regardless of ship types:
+            - Checks if coordinates are within bounds of the board
+            - Checks if the chosen coordinate is already occupied.
 
-        - Checks if coordinates are within bounds of the board
-        - Checks if the chosen coordinate is already occupied.
-
-        Returns the updated game grid if the placement is valid,
-        returns None if placement is invalid.
+        Returns the updated game grid if the placement is valid, returns None
+        if placement is invalid.
         """
         # Convert the letter coordinate to an index
         if not coord[1].upper() in self.cols:
@@ -372,33 +336,37 @@ class Grid:
 
         return self.grid
 
-    def check_hit_miss(self, coord, player_type):
+    def is_hit(self, coord, player_type):
         """Check if coordinate hit or miss a ship coordinate.
-        If it is a hit, remove the coordinate from ship list"""
+        If it is a hit, remove the coordinate from ship list and returns True.
+        If it is a miss returns False"""
         for ship in self.ships:
             for coordinate in ship:
-                if coord == coordinate:
-                    if player_type == "human_player":
-                        print("Your ship has been hit.")
+                if coordinate == (int(coord[0]), coord[1].upper()):
+                    # if player_type == "human_player":
+                    #     print("Your ship has been hit.")
                     ship.remove(coordinate)
+                    return True
+        return False
 
-    def mark_hit_or_miss(self, coord, is_hit):
-        """Mark on target grid if guess it a hit or miss"""
+    def mark_hit_or_miss(self, coord, is_hit, player_type):
+        """Modifies target grid to represent hit ('X') and misses ('O')
+        Modifies on human player's grid only if it's a hit ('X')."""
         letter_coord = self.cols.index(coord[1].upper())
         if is_hit:
-            print("It's a hit!")
             self.grid[int(coord[0])][letter_coord] = "X"
         else:
-            self.grid[int(coord[0])][letter_coord] = "O"
+            if player_type == "computer_player":
+                self.grid[int(coord[0])][letter_coord] = "O"
 
 
 class Player:
     """Player class for setting up player attributes, such as the player's
-    guesses"""
+    guesses
+    """
     def __init__(self, grid):
         self.grid = grid
         self.guesses = []
-        # self.guesses [[(0, A), (0, B)]]
 
     def guess_coord(self, guess):
         """If guess is already in self.guesses, returns None.
@@ -418,23 +386,26 @@ class Game:
         self.current_player = current_player
 
     def sunk_ship(self, player, opponent):
-        if [] in opponent.grid:
+        if [] in opponent.ships:
             print("You have sunk a ship!")
 
-    def next_turn(self):
-        """Determines next player"""
-        temp = self.current_player
-        self.current_player = self.next_player
-        self.next_player = temp
-
-        return self.current_player
+    def game_over(self, human_player, computer_player):
+        """When one player has sunk all their opponent's ships, the game
+        is over and the player is declared the winner"""
+        if all(x == [] for x in human_player.ships):
+            print("You have lost! Game over.")
+            return True
+        if all(x == [] for x in computer_player.ships):
+            print("You have won! Game over.")
+            return True
+        return False
 
 
 def handle_input(ship_type):
     """Handles user input with placing ships on the board.
 
-    Returns A tuple containing the coordinate (as a tuple)
-    and the direction, or None for invalid input.
+    Returns a tuple containing the coordinate (as a tuple) and the direction if
+    it is a valid input, or None for invalid input.
     """
     # Prompt the user for the coordinate and split it into a tuple
     coord = input("Where would you like to place your " + ship_type + " ship? Enter a "
@@ -551,6 +522,7 @@ if __name__ == '__main__':
 """)
     # =========================== Board Setup ===============================
 
+    # Setting up the grid based on chosen grid size
     difficulty_level = input("What difficulty level do you want? Choose Easy "
                              "or Medium, or Hard: ")
     while difficulty_level.lower() not in ["easy", "medium", "hard"]:
@@ -574,12 +546,12 @@ if __name__ == '__main__':
     # placing the 5x1 ship
     place_ship("5x1", grid, "human_player", difficulty_level)
 
+    # Setting up computer's grid and ship placements
     print("\nThe computer will now place its ships. This process will be "
           "hidden in the final version.")
     input("Press Enter to continue...")
     print("\nThe computer will begin to place its ships:")
 
-    # print(grid.ships)
     computer_grid = Grid(difficulty_level)
     place_ship("2x1", computer_grid, "computer_player", difficulty_level)
     place_ship("3x1", computer_grid, "computer_player", difficulty_level)
@@ -594,17 +566,21 @@ if __name__ == '__main__':
     print("Human player's ship placements:", grid.ships)
 
     # ============================= Instructions =============================
-    print("\n\nPrepare for battle!")
-    print("The target grid will be above your own grid. Guess coordinates"
+    input("Press Enter to continue to instructions. ")
+    print("\nPrepare for battle!")
+    print("The target grid will be below your own grid. Guess coordinates "
           "from the target grid -- if you manage to hit a part of your "
           "opponent's ships, that coordinate will be marked with a 'X' on the"
-          "target grid; if it is a miss, it will be a 'O'.")
+          "target grid; if it is a miss, it will be a 'O'.\n")
     print("Your opponent will also be guessing coordinates, and if they manage "
           "to hit one of your ships, an 'X' will be marked on your grid. "
           "The first to sink all of their opponent's ships wins!")
     input("Press Enter to start...")
 
     # ================================= Game Setup =============================
+
+    # Creating instances of human and computer player, as well as initializing
+    # the target grid
 
     human_player = Player(grid)
     computer_player = Player(computer_grid)
@@ -613,45 +589,114 @@ if __name__ == '__main__':
 
     battleship_game = Game(grid, computer_grid, human_player, computer_player)
 
-    print("Your ocean grid:")
+    print("Your grid:")
     grid.print_grid()
 
     print("Target Grid:")
     target_grid.print_grid()
 
+    # Determine valid column and row boundaries based on difficulty level
+    if difficulty_level.lower() == "easy":
+        cols = ["A", "B", "C", "D", "E", "F", "G", "H"]
+        rows = list(range(8))  # [0, 1, 2, 3, 4, 5, 6, 7]
+
+    elif difficulty_level.lower() == "medium":
+        cols = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "G"]
+        rows = list(range(10))
+
+    else:  # self.difficulty.lower == "hard"
+        cols = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "G", "K",
+                "L", "M", "N", "O"]
+        rows = list(range(15))
+
     # ================================= Game Loop =============================
+    while not battleship_game.game_over(grid, computer_grid):
+        # Human's turn first
+        valid_guess = False
+        tuple_guess = ()
+        print("Your turn!")
 
-    valid_guess = False
-    tuple_guess = ()
+        while not valid_guess:
+            new_guess = input("Enter your guess, in coordinates (i.e. 1, F): ")
+            # Process the guessed coordinates to ensure it's a valid guess
+            # i.e. is a valid coordinate, has not been guessed, and is
+            # within bound
+            tuple_guess = new_guess.split(',')
+            tuple_guess = [value.strip() for value in tuple_guess]
+            tuple_guess = tuple(tuple_guess)
 
-    while not valid_guess:
-        new_guess = input("Enter your guess, in coordinates (i.e. 1, F): ")
-        tuple_guess = new_guess.split(',')
-        tuple_guess = [value.strip() for value in tuple_guess]
-        tuple_guess = tuple(tuple_guess)
+            try:
+                # Check if the first part of the coordinate is a valid integer
+                int_value = int(tuple_guess[0])
+            except ValueError:
+                print("\nInvalid coordinates. Input a letter and a number, "
+                      "separated by a colon, e.g. 1, F. Please try again")
+                continue
 
-        try:
-            # Check if the first part of the coordinate is a valid integer
-            int_value = int(tuple_guess[0])
-        except ValueError:
-            print("\nInvalid coordinates. Input a letter and a number, "
-                  "separated by a colon, e.g. 1, F. Please try again")
-            continue
+            # Check if the second part of the coordinate is a single letter
+            if not (isinstance(tuple_guess[1], str) and tuple_guess[1].isalpha()):
+                print("\nInvalid coordinates. Input a letter and a number, "
+                      "separated by a colon, e.g. 1, F. Please try again.")
+                continue
+            # Check if coordinate has been guessed before
+            if tuple_guess in human_player.guesses:
+                print("\nYou have already guessed this coordinate. Try again.")
+                continue
+            # Check if coordinate is within bound
+            if int(tuple_guess[0]) < 0 or int(tuple_guess[0]) >= len(cols) or \
+                    tuple_guess[1].upper() not in cols:
+                print("\nCoordinates are invalid. Please try again.")
+                continue
 
-        # Check if the second part of the coordinate is a single letter
-        if not (isinstance(tuple_guess[1], str) and tuple_guess[1].isalpha()):
-            print("\nInvalid coordinates. Input a letter and a number, "
-                  "separated by a colon, e.g. 1, F. Please try again.")
-            continue
-        valid_guess = True
-    print("Valid guess. Rest to be implemented")
-    # computer_grid.check_hit_miss(tuple_guess, "computer_player")
+            valid_guess = True
+            # Add this valid guess to the list of guesses
+            human_player.guesses.append(tuple_guess)
 
+        # Modify target grid according to hit/miss
+        is_hit = computer_grid.is_hit(tuple_guess, "computer_player")
+        target_grid.mark_hit_or_miss(tuple_guess, is_hit, "computer_player")
 
+        print("\nYour grid:")
+        grid.print_grid()
 
+        print("\nTarget grid:")
+        target_grid.print_grid()
 
+        if is_hit:
+            print("\nIt's a hit at ", (int(tuple_guess[0]), tuple_guess[1].upper()), "!")
+        else:
+            print("\nIt's a miss.")
 
+        print("Computer's remaining ships (for debugging purposes):")
+        print(computer_grid.ships)
 
+        # Check if game is over after human player's turn
+        if battleship_game.game_over(grid, computer_grid):
+            break
 
+        # Computer's turn
+        input("\nComputer will guess now. Press Enter to continue. ")
 
+        # Simplest algorithm: random guesses
+        tuple_guess_computer = (random.choice(rows), random.choice(cols))
+        while tuple_guess_computer in computer_player.guesses:
+            tuple_guess_computer = (random.choice(rows), random.choice(cols))
 
+        # To implement: Harder algorithms - strategic guessing (guessing
+        # randomly, if hit, guess coordinates around that point)
+
+        computer_player.guesses.append(tuple_guess_computer)
+        is_hit = grid.is_hit(tuple_guess_computer, "human_player")
+        grid.mark_hit_or_miss(tuple_guess_computer, is_hit, "human_player")
+
+        print("\nYour grid:")
+        grid.print_grid()
+        print("\nTarget grid:")
+        target_grid.print_grid()
+
+        print("\nComputer guesses", tuple_guess_computer)
+        if is_hit:
+            print("You've been hit at ", (int(tuple_guess_computer[0]),
+                                          tuple_guess_computer[1].upper()), "!")
+        else:
+            print("Your ships are safe.")
