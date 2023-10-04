@@ -675,7 +675,8 @@ if __name__ == '__main__':
             break
 
         # Computer's turn
-        print("\nComputer will guess now. ")
+        input("\nThe computer will guess now. Press enter to Continue.")
+        print("\nComputer's turn: ")
 
         # Simplest algorithm: random guesses
         tuple_guess_computer = (random.choice(rows), random.choice(cols))
