@@ -343,8 +343,8 @@ class Grid:
         for ship in self.ships:
             for coordinate in ship:
                 if coordinate == (int(coord[0]), coord[1].upper()):
-                    # if player_type == "human_player":
-                    #     print("Your ship has been hit.")
+                    if player_type == "human_player":
+                        print("Your ship has been hit.")
                     ship.remove(coordinate)
                     return True
         return False
@@ -675,7 +675,7 @@ if __name__ == '__main__':
             break
 
         # Computer's turn
-        input("\nComputer will guess now. Press Enter to continue. ")
+        print("\nComputer will guess now. ")
 
         # Simplest algorithm: random guesses
         tuple_guess_computer = (random.choice(rows), random.choice(cols))
@@ -683,7 +683,7 @@ if __name__ == '__main__':
             tuple_guess_computer = (random.choice(rows), random.choice(cols))
 
         # To implement: Harder algorithms - strategic guessing (guessing
-        # randomly, if hit, guess coordinates around that point)
+        # randomly, if hit,guess coordinates around that point)
 
         computer_player.guesses.append(tuple_guess_computer)
         is_hit = grid.is_hit(tuple_guess_computer, "human_player")
