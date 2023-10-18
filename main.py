@@ -18,6 +18,10 @@ class Grid:
         self.rows = []
         self.__labels()
         self.ships = []
+        #  in front of each list in self.ship is the
+        #  size of the ship. so if a list only has 1 element left, then
+        #  read that element to know what size ship has sunk then delete that
+        #  last element
 
     def __construct_grid(self):
         """Create an empty grid based on chosen difficulty level
@@ -32,6 +36,7 @@ class Grid:
         else:
             size = 15
 
+        # Create an empty size x size grid
         for i in range(size):
             row = []
             for j in range(size):
@@ -108,8 +113,8 @@ class Grid:
             self.grid[int(coord[0])][letter_coord + 1] = ">"
 
             # Ship has been successfully placed.
-            # Add the coordinates to ship list
-            self.ships.append([(int(coord[0]), self.cols[letter_coord]),
+            # First element of the list is the size of the placed ship
+            self.ships.append([2, (int(coord[0]), self.cols[letter_coord]),
                                (coord[0], self.cols[letter_coord + 1])])
 
         else:   # direction == "v"
@@ -129,7 +134,8 @@ class Grid:
             self.grid[int(coord[0]) + 1][letter_coord] = "v"
 
             # Ship has been successfully placed. Add the coords to ship list
-            self.ships.append([(int(coord[0]), self.cols[letter_coord]),
+            # First element of the list is the size of the placed ship
+            self.ships.append([2, (int(coord[0]), self.cols[letter_coord]),
                                (int(coord[0]) + 1, self.cols[letter_coord])])
 
         return self.grid
@@ -155,7 +161,11 @@ class Grid:
                 self.grid[int(coord[0])][letter_coord + 1] = "-"
                 self.grid[int(coord[0])][letter_coord + 2] = ">"
 
-                self.ships.append([(int(coord[0]), self.cols[letter_coord]),
+                # self.ships[3] = [(int(coord[0]), self.cols[letter_coord]),
+                #                     (int(coord[0]), self.cols[letter_coord + 1]),
+                #                     (int(coord[0]), self.cols[letter_coord + 2])]
+
+                self.ships.append([3, (int(coord[0]), self.cols[letter_coord]),
                                    (int(coord[0]), self.cols[letter_coord + 1]),
                                    (int(coord[0]), self.cols[letter_coord + 2])])
 
@@ -175,7 +185,10 @@ class Grid:
                 self.grid[int(coord[0]) + 1][letter_coord] = "|"
                 self.grid[int(coord[0]) + 2][letter_coord] = "v"
 
-                self.ships.append([(int(coord[0]), self.cols[letter_coord]),
+                # self.ships[3] = [(int(coord[0]), self.cols[letter_coord]),
+                #                  (int(coord[0]) + 1, self.cols[letter_coord]),
+                #                  (int(coord[0]) + 2, self.cols[letter_coord])]
+                self.ships.append([3, (int(coord[0]), self.cols[letter_coord]),
                                    (int(coord[0]) + 1, self.cols[letter_coord]),
                                    (int(coord[0]) + 2, self.cols[letter_coord])])
         return self.grid
@@ -205,7 +218,11 @@ class Grid:
                 self.grid[int(coord[0])][letter_coord + 2] = "-"
                 self.grid[int(coord[0])][letter_coord + 3] = ">"
 
-                self.ships.append([(int(coord[0]), self.cols[letter_coord]),
+                # self.ships[4] = [(int(coord[0]), self.cols[letter_coord]),
+                #                  (int(coord[0]), self.cols[letter_coord + 1]),
+                #                  (int(coord[0]), self.cols[letter_coord + 2]),
+                #                  (int(coord[0]), self.cols[letter_coord + 3])]
+                self.ships.append([4, (int(coord[0]), self.cols[letter_coord]),
                                    (int(coord[0]), self.cols[letter_coord + 1]),
                                    (int(coord[0]), self.cols[letter_coord + 2]),
                                    (int(coord[0]), self.cols[letter_coord + 3])])
@@ -229,7 +246,11 @@ class Grid:
                 self.grid[int(coord[0]) + 2][letter_coord] = "|"
                 self.grid[int(coord[0]) + 3][letter_coord] = "v"
 
-                self.ships.append([(int(coord[0]), self.cols[letter_coord]),
+                # self.ships[4] = [(int(coord[0]), self.cols[letter_coord]),
+                #                  (int(coord[0]) + 1, self.cols[letter_coord]),
+                #                  (int(coord[0]) + 2, self.cols[letter_coord]),
+                #                  (int(coord[0]) + 3, self.cols[letter_coord])]
+                self.ships.append([4, (int(coord[0]), self.cols[letter_coord]),
                                    (int(coord[0]) + 1, self.cols[letter_coord]),
                                    (int(coord[0]) + 2, self.cols[letter_coord]),
                                    (int(coord[0]) + 3, self.cols[letter_coord])])
@@ -263,7 +284,12 @@ class Grid:
                 self.grid[int(coord[0])][letter_coord + 3] = "-"
                 self.grid[int(coord[0])][letter_coord + 4] = ">"
 
-                self.ships.append([(int(coord[0]), self.cols[letter_coord]),
+                # self.ships[5] = [(int(coord[0]), self.cols[letter_coord]),
+                #                  (int(coord[0]), self.cols[letter_coord + 1]),
+                #                  (int(coord[0]), self.cols[letter_coord + 2]),
+                #                  (int(coord[0]), self.cols[letter_coord + 3]),
+                #                  (int(coord[0]), self.cols[letter_coord + 4])]
+                self.ships.append([5, (int(coord[0]), self.cols[letter_coord]),
                                    (int(coord[0]), self.cols[letter_coord + 1]),
                                    (int(coord[0]), self.cols[letter_coord + 2]),
                                    (int(coord[0]), self.cols[letter_coord + 3]),
@@ -291,7 +317,12 @@ class Grid:
                 self.grid[int(coord[0]) + 3][letter_coord] = "|"
                 self.grid[int(coord[0]) + 4][letter_coord] = "v"
 
-                self.ships.append([(int(coord[0]), self.cols[letter_coord]),
+                # self.ships[5] = [(int(coord[0]), self.cols[letter_coord]),
+                #                  (int(coord[0]) + 1, self.cols[letter_coord]),
+                #                  (int(coord[0]) + 2, self.cols[letter_coord]),
+                #                  (int(coord[0]) + 3, self.cols[letter_coord]),
+                #                  (int(coord[0]) + 4, self.cols[letter_coord])]
+                self.ships.append([5, (int(coord[0]), self.cols[letter_coord]),
                                    (int(coord[0]) + 1, self.cols[letter_coord]),
                                    (int(coord[0]) + 2, self.cols[letter_coord]),
                                    (int(coord[0]) + 3, self.cols[letter_coord]),
@@ -338,22 +369,31 @@ class Grid:
 
     def is_hit(self, coord, player_type):
         """Check if coordinate hit or miss a ship coordinate.
-        If it is a hit, remove the coordinate from ship list and returns True.
-        If it is a miss returns False"""
+        If it's a hit:
+            - if full ship has been sunk, return the size of that ship
+            - if it is a hit but a full ship has not been sunk, return 0
+        If it's a miss, return None
+        """
+        sunk_ship_size = 0
         for ship in self.ships:
             for coordinate in ship:
-                if coordinate == (int(coord[0]), coord[1].upper()):
+                if type(coordinate) is tuple and coordinate == (int(coord[0]), coord[1].upper()):
                     if player_type == "human_player":
                         print("Your ship has been hit.")
                     ship.remove(coordinate)
-                    return True
-        return False
+                    if len(ship) == 1 and isinstance(ship[0], int):
+                        # if player_type == "computer_player":
+                        #     print("You have sunk a", ship[0], "x 1 ship!")
+                        sunk_ship_size = ship.pop(0)
+                        # Size of sunk ship is the first element of the list
+                    return sunk_ship_size
+        return None
 
     def mark_hit_or_miss(self, coord, is_hit, player_type):
         """Modifies target grid to represent hit ('X') and misses ('O')
         Modifies on human player's grid only if it's a hit ('X')."""
         letter_coord = self.cols.index(coord[1].upper())
-        if is_hit:
+        if is_hit is not None:
             self.grid[int(coord[0])][letter_coord] = "X"
         else:
             if player_type == "computer_player":
@@ -385,13 +425,10 @@ class Game:
         self.next_player = next_player
         self.current_player = current_player
 
-    def sunk_ship(self, player, opponent):
-        if [] in opponent.ships:
-            print("You have sunk a ship!")
-
     def game_over(self, human_player, computer_player):
-        """When one player has sunk all their opponent's ships, the game
-        is over and the player is declared the winner"""
+        """Return True is player has sunk all their opponent's ships, and prints
+        the winner to console. Return False otherwise.
+        """
         if all(x == [] for x in human_player.ships):
             print("You have lost! Game over.")
             return True
@@ -424,6 +461,10 @@ def handle_input(ship_type):
         return None
 
     # Check if the second part of the coordinate is a single letter
+    if len(tuple_coord) != 2:
+        print("\nInvalid coordinates. Input a letter and a number, "
+              "separated by a colon, e.g. 1, F. Please try again.")
+        return None
     if not (isinstance(tuple_coord[1], str) and tuple_coord[1].isalpha()):
         print("\nInvalid coordinates. Input a letter and a number, "
               "separated by a colon, e.g. 1, F. Please try again.")
@@ -505,6 +546,15 @@ def place_ship(ship_type, grid, player_type, difficulty):
                 placed_ship = grid.place_5x1_ship(tuple_coord, dir)
 
 
+def display_grids(player_grid, target_grid):
+    """Print player grid and target grid"""
+    print("Your grid:")
+    player_grid.print_grid()
+
+    print("Target Grid:")
+    target_grid.print_grid()
+
+
 if __name__ == '__main__':
     print("")
     print("""
@@ -571,7 +621,7 @@ if __name__ == '__main__':
     print("The target grid will be below your own grid. Guess coordinates "
           "from the target grid -- if you manage to hit a part of your "
           "opponent's ships, that coordinate will be marked with a 'X' on the"
-          "target grid; if it is a miss, it will be a 'O'.\n")
+          " target grid; if it is a miss, it will be a 'O'.\n")
     print("Your opponent will also be guessing coordinates, and if they manage "
           "to hit one of your ships, an 'X' will be marked on your grid. "
           "The first to sink all of their opponent's ships wins!")
@@ -589,11 +639,7 @@ if __name__ == '__main__':
 
     battleship_game = Game(grid, computer_grid, human_player, computer_player)
 
-    print("Your grid:")
-    grid.print_grid()
-
-    print("Target Grid:")
-    target_grid.print_grid()
+    display_grids(grid, target_grid)
 
     # Determine valid column and row boundaries based on difficulty level
     if difficulty_level.lower() == "easy":
@@ -633,6 +679,10 @@ if __name__ == '__main__':
                       "separated by a colon, e.g. 1, F. Please try again")
                 continue
 
+            if len(tuple_guess) != 2:
+                print("\nInvalid coordinates. Input a letter and a number, "
+                      "separated by a colon, e.g. 1, F. Please try again.")
+                continue
             # Check if the second part of the coordinate is a single letter
             if not (isinstance(tuple_guess[1], str) and tuple_guess[1].isalpha()):
                 print("\nInvalid coordinates. Input a letter and a number, "
@@ -656,14 +706,12 @@ if __name__ == '__main__':
         is_hit = computer_grid.is_hit(tuple_guess, "computer_player")
         target_grid.mark_hit_or_miss(tuple_guess, is_hit, "computer_player")
 
-        print("\nYour grid:")
-        grid.print_grid()
+        display_grids(grid, target_grid)
 
-        print("\nTarget grid:")
-        target_grid.print_grid()
-
-        if is_hit:
+        if is_hit is not None:
             print("\nIt's a hit at ", (int(tuple_guess[0]), tuple_guess[1].upper()), "!")
+            if is_hit != 0:
+                print("You have sunk a", is_hit, "x 1 ship!")
         else:
             print("\nIt's a miss.")
 
@@ -675,7 +723,7 @@ if __name__ == '__main__':
             break
 
         # Computer's turn
-        input("\nThe computer will guess now. Press enter to Continue.")
+        input("\nThe computer will guess now. Press enter to Continue. ")
         print("\nComputer's turn: ")
 
         # Simplest algorithm: random guesses
@@ -690,13 +738,12 @@ if __name__ == '__main__':
         is_hit = grid.is_hit(tuple_guess_computer, "human_player")
         grid.mark_hit_or_miss(tuple_guess_computer, is_hit, "human_player")
 
-        print("\nYour grid:")
-        grid.print_grid()
-        print("\nTarget grid:")
-        target_grid.print_grid()
+        display_grids(grid, target_grid)
 
         print("\nComputer guesses", tuple_guess_computer)
-        if is_hit:
+        if is_hit is not None:
+            if is_hit != 0:
+                print("The computer has sunk your", is_hit, "x 1 ship!")
             print("You've been hit at ", (int(tuple_guess_computer[0]),
                                           tuple_guess_computer[1].upper()), "!")
         else:
