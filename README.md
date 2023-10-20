@@ -1,6 +1,6 @@
-# 🚢 Battleship
+# Console Battleship Game
 
-Play Battleship on the console, and try to win against the computer player! 
+Play Battleship on the python console, and try to win against the computer player! 
 
 To play, input coordinates to place your ships on the grid. Then, try to target the computer's ships by guessing coordinates. 
 
