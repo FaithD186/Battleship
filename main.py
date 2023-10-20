@@ -419,20 +419,19 @@ class Player:
 
 class Game:
     """Game class for handling game attributes"""
-    def __init__(self, human_grid, computer_grid, current_player, next_player):
-        self.human_grid = human_grid
-        self.computer_grid = computer_grid
-        self.next_player = next_player
-        self.current_player = current_player
+    # TODO: game class should interact with player class instead of grid class
+    def __init__(self, human_player, computer_player):
+        self.human_player = human_player
+        self.computer_player = computer_player
 
-    def game_over(self, human_player, computer_player):
+    def game_over(self):
         """Return True is player has sunk all their opponent's ships, and prints
         the winner to console. Return False otherwise.
         """
-        if all(x == [] for x in human_player.ships):
+        if all(x == [] for x in human_player.grid.ships):
             print("You have lost! Game over.")
             return True
-        if all(x == [] for x in computer_player.ships):
+        if all(x == [] for x in computer_player.grid.ships):
             print("You have won! Game over.")
             return True
         return False
@@ -637,7 +636,7 @@ if __name__ == '__main__':
 
     target_grid = Grid(difficulty_level)
 
-    battleship_game = Game(grid, computer_grid, human_player, computer_player)
+    battleship_game = Game(human_player, computer_player)
 
     display_grids(grid, target_grid)
 
@@ -656,7 +655,7 @@ if __name__ == '__main__':
         rows = list(range(15))
 
     # ================================= Game Loop =============================
-    while not battleship_game.game_over(grid, computer_grid):
+    while not battleship_game.game_over():
         # Human's turn first
         valid_guess = False
         tuple_guess = ()
@@ -708,6 +707,9 @@ if __name__ == '__main__':
 
         display_grids(grid, target_grid)
 
+        # is_hit() returns None if coordinate is a miss. Returns the
+        # sunken ship size if coordinate is a hit and a full ship has been sunk,
+        # returns 0 if it's a hit but no full ship sunk
         if is_hit is not None:
             print("\nIt's a hit at ", (int(tuple_guess[0]), tuple_guess[1].upper()), "!")
             if is_hit != 0:
@@ -719,7 +721,7 @@ if __name__ == '__main__':
         print(computer_grid.ships)
 
         # Check if game is over after human player's turn
-        if battleship_game.game_over(grid, computer_grid):
+        if battleship_game.game_over():
             break
 
         # Computer's turn
