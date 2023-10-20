@@ -1,4 +1,4 @@
-# Battleship 🚢 
+# 🚢 Battleship 🛳️
 
 Play Battleship on the console, and try to win against the computer player! 
 
